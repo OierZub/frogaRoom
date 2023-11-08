@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.frogaRoom.R;
 import com.example.frogaRoom.data.ErosketaZerrendaDatabase;
 import com.example.frogaRoom.data.entities.Erabiltzailea;
 import com.example.frogaRoom.data.entities.ErosketaZerrenda;
@@ -93,8 +91,11 @@ public class MainActivity extends AppCompatActivity {
             // Sortu erabiltzailea
             String izena = email.split("@")[0];
             oUser = new Erabiltzailea(izena, email, password);
-            datuBasea.erabiltzaileDao().insertUser(oUser);
-            oUser = datuBasea.erabiltzaileDao().getUserByEmail(email); // Irakurri id-a eskuratzeko.
+
+            long userId = datuBasea.erabiltzaileDao().insertUser(oUser);
+            Log.d(TAG, "ZZZZZZZZZZZZZZZZZ   userId: " + userId);
+            oUser.setUserId(userId);
+            //oUser = datuBasea.erabiltzaileDao().getUserByEmail(email); // Irakurri id-a eskuratzeko.
             // Sortu erosketa zerrenda.
             ErosketaZerrenda shoppingList1 = new ErosketaZerrenda("Zerrenda " + izena, new Date(), oUser.getUserId());
             datuBasea.erosketaZerrendaDao().insertList(shoppingList1);
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void datuakGorde() {
         EditText etEmail = findViewById(R.id.editTextEmail);
-        EditText etPass = findViewById(R.id.editTextEmail);
+        EditText etPass = findViewById(R.id.editTextPasahitza);
 
         // Obtener el texto del EditText
         String email = etEmail.getText().toString();

@@ -24,10 +24,10 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
 
     private ErosketaZerrendaDatabase datuBasea; // Declarar tu instancia de la base de datos
     //--
-    final String BILDUMA_IZENA = "zerrenda";
+
     String produktuIzena;
     int kopurua;
-    int userId;
+    long userId;
 
 
     @Override
@@ -38,7 +38,7 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
         // Irakurri erabiltzaile ID-a
         Intent intent = getIntent();
         if (intent != null) {
-            userId = intent.getIntExtra("userId", 0);
+            userId = intent.getLongExtra("userId", 0L);
             Toast.makeText(ErosketaZerrendaActivity.this, "UserID: " + userId,
                     Toast.LENGTH_SHORT).show();
         }
@@ -93,13 +93,14 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
         getDatuak();
         // Sortu objektua.
         Produktua oProd;
+        long prodId;
         oProd = datuBasea.produktuaDao().getProductByName(produktuIzena);
         if (oProd == null){ // Produktu berria bada, sartu datu basean.
             oProd = new Produktua(produktuIzena, 1.00);
-            datuBasea.produktuaDao().insertProduct(oProd);
-            oProd = datuBasea.produktuaDao().getProductByName(produktuIzena);
+            prodId = datuBasea.produktuaDao().insertProduct(oProd);
+            oProd.setProduktuId(prodId);
         }
-        int prodId = oProd.getProduktuId();
+        prodId = oProd.getProduktuId();
         // Gorde erosketa zerrendan. KONTUZ!!! Momentuz erabiltzaile bakoitza zerrenda bakarra, gero uderId beharrean zerrendaId erabili.
         ErosketaZerrendaProduktuakCrossRef oProdErosketa  = datuBasea.erosketaZerrendaProduktuakDao().getProductByIdFromZerrenda(userId, prodId);
         if (oProdErosketa != null) {
@@ -107,10 +108,9 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
             datuBasea.erosketaZerrendaProduktuakDao().updateProductKop(userId, prodId, kopurua);
 
         } else {
-            int zerrendaId = userId;
-            int produktuId = prodId;
+            long zerrendaId = userId;
             int kop = kopurua;
-            ErosketaZerrendaProduktuakCrossRef shoppingListProduct1 = new ErosketaZerrendaProduktuakCrossRef(zerrendaId, produktuId, kop);
+            ErosketaZerrendaProduktuakCrossRef shoppingListProduct1 = new ErosketaZerrendaProduktuakCrossRef(zerrendaId, prodId, kop);
             datuBasea.erosketaZerrendaProduktuakDao().insertShoppingListProduct(shoppingListProduct1);
             Toast.makeText(ErosketaZerrendaActivity.this, "Gehitu da erosketa zerrendan. ",
                     Toast.LENGTH_SHORT).show();
@@ -152,12 +152,12 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
 
     private void irakurriProduktuak() {
 
-        int zerrendaId = userId;
+        long zerrendaId = userId;
         List<ErosketaZerrendaProduktuakCrossRef> prodEroskList =  datuBasea.erosketaZerrendaProduktuakDao().getProductsInList(zerrendaId);
 
-        List<Integer> prodIdList = new ArrayList<>();
+        List<Long> prodIdList = new ArrayList<>();
         for (int i = 0; i < prodEroskList.size();i++) {
-            int prodId = prodEroskList.get(i).getProduktuId();
+            long prodId = prodEroskList.get(i).getProduktuId();
             // Realiza las operaciones necesarias con los nombres de productos
             prodIdList.add(prodId);
         }
@@ -165,8 +165,7 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
 
         String erosketaZerrenda = "";
         for (int i = 0; i < produkList.size();i++) {
-            String prokuktuInfo = "";
-            prokuktuInfo = produkList.get(i).getIzena() + " Kop: " + prodEroskList.get(i).getKopurua()
+            String prokuktuInfo = produkList.get(i).getIzena() + " Kop: " + prodEroskList.get(i).getKopurua()
                     + " Prezioa: " + produkList.get(i).getPrezioa() + " €";
             erosketaZerrenda += prokuktuInfo + "\n";
         }

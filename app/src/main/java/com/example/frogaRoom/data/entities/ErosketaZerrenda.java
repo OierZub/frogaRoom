@@ -13,13 +13,13 @@ public class ErosketaZerrenda {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "zerrenda_id")
-    public int zerrendaId;
+    public long zerrendaId;
     public String zerrendaIzena;
     public Date sortzeData;
     @ColumnInfo(name = "user_id")
-    public int userId; // Erabiltzaile jabearen id-a.
+    public long userId; // Erabiltzaile jabearen id-a.
 
-    public ErosketaZerrenda(String zerrendaIzena, Date sortzeData, int userId) {
+    public ErosketaZerrenda(String zerrendaIzena, Date sortzeData, long userId) {
 
         this.zerrendaIzena = zerrendaIzena;
         this.sortzeData = sortzeData;
@@ -29,11 +29,11 @@ public class ErosketaZerrenda {
     public ErosketaZerrenda() {
     }
 
-    public int getZerrendaId() {
+    public long getZerrendaId() {
         return zerrendaId;
     }
 
-    public void setZerrendaId(int zerrendaId) {
+    public void setZerrendaId(long zerrendaId) {
         this.zerrendaId = zerrendaId;
     }
 
@@ -53,11 +53,11 @@ public class ErosketaZerrenda {
         this.sortzeData = sortzeData;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

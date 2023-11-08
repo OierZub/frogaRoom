@@ -13,7 +13,7 @@ public class Erabiltzailea {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "user_id")
-    public int userId;
+    public long userId;
     @NonNull
     public String izena;
     @NonNull
@@ -31,11 +31,11 @@ public class Erabiltzailea {
     public Erabiltzailea() {
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

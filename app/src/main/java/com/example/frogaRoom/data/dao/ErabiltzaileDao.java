@@ -13,10 +13,10 @@ public interface ErabiltzaileDao {
 
 
         @Insert
-        void insertUser(Erabiltzailea user);
+        long insertUser(Erabiltzailea user);
 
         @Query("SELECT * FROM Erabiltzaileak WHERE user_id = :userId")
-        Erabiltzailea getUserById(int userId);
+        Erabiltzailea getUserById(long userId);
 
         @Query("SELECT * FROM Erabiltzaileak WHERE email = :email")
         Erabiltzailea getUserByEmail(String email);

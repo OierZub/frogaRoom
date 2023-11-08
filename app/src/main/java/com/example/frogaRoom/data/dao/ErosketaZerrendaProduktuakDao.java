@@ -16,11 +16,11 @@ public interface ErosketaZerrendaProduktuakDao {
 
     // Zerrenda bateko produktu guztiak eskuratzeko.
     @Query("SELECT * FROM erosketa_zerrenda_produktuak WHERE zerrendaId = :listId")
-    List<ErosketaZerrendaProduktuakCrossRef> getProductsInList(int listId);
+    List<ErosketaZerrendaProduktuakCrossRef> getProductsInList(long listId);
 
     // Zerrenda baten produktu bat eskuratzeko. Kopurua edukitzeko.
     @Query("SELECT * FROM erosketa_zerrenda_produktuak WHERE zerrendaId = :listId and produktuId = :prodId")
-    ErosketaZerrendaProduktuakCrossRef getProductByIdFromZerrenda(int listId, int prodId);
+    ErosketaZerrendaProduktuakCrossRef getProductByIdFromZerrenda(long listId, long prodId);
 
     // Zerrendako produktu guztien izenak eskuratzeko. Hau 2.5.0 room bertsioa behar da.
     /*
@@ -33,5 +33,5 @@ public interface ErosketaZerrendaProduktuakDao {
 
     // Eguneratzeko kopurua
     @Query("UPDATE erosketa_zerrenda_produktuak SET kopurua= :kop WHERE zerrendaId = :listId and produktuId = :prodId")
-    void updateProductKop(int listId, int prodId, int kop);
+    void updateProductKop(long listId, long prodId, int kop);
 }

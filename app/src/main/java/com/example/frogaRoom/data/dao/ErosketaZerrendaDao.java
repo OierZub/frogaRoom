@@ -14,7 +14,7 @@ public interface ErosketaZerrendaDao {
         void insertList(ErosketaZerrenda erosketaZerrenda);
 
         @Query("SELECT * FROM erosketa_zerrenda WHERE zerrenda_id = :listId")
-        ErosketaZerrenda getListById(int listId);
+        ErosketaZerrenda getListById(long listId);
 
         // Otros métodos para consultar o modificar listas de compras
 

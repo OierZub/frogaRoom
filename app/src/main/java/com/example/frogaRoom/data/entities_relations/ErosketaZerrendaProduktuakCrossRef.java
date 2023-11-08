@@ -13,30 +13,30 @@ import com.example.frogaRoom.data.entities.ErosketaZerrenda;
         onDelete = ForeignKey.CASCADE)
 )
 public class ErosketaZerrendaProduktuakCrossRef {
-    private int zerrendaId;      // ID de la lista de compras
-    private int produktuId;   // ID del producto en la lista de compras
+    private long zerrendaId;      // ID de la lista de compras
+    private long produktuId;   // ID del producto en la lista de compras
     private int kopurua;    // Cantidad del producto en la lista de compras
 
 
-    public ErosketaZerrendaProduktuakCrossRef(int zerrendaId, int produktuId, int kopurua) {
+    public ErosketaZerrendaProduktuakCrossRef(long zerrendaId, long produktuId, int kopurua) {
         this.zerrendaId = zerrendaId;
         this.produktuId = produktuId;
         this.kopurua = kopurua;
     }
 
-    public int getZerrendaId() {
+    public long getZerrendaId() {
         return zerrendaId;
     }
 
-    public void setZerrendaId(int zerrendaId) {
+    public void setZerrendaId(long zerrendaId) {
         this.zerrendaId = zerrendaId;
     }
 
-    public int getProduktuId() {
+    public long getProduktuId() {
         return produktuId;
     }
 
-    public void setProduktuId(int produktuId) {
+    public void setProduktuId(long produktuId) {
         this.produktuId = produktuId;
     }
 

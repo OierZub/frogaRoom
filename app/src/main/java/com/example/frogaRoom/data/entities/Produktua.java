@@ -11,7 +11,7 @@ public class Produktua {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_id")
-    public int produktuId;
+    public long produktuId;
 
     @NonNull
     public String izena;
@@ -26,11 +26,11 @@ public class Produktua {
     public Produktua() {
     }
 
-    public int getProduktuId() {
+    public long getProduktuId() {
         return produktuId;
     }
 
-    public void setProduktuId(int produktuId) {
+    public void setProduktuId(long produktuId) {
         this.produktuId = produktuId;
     }
 
