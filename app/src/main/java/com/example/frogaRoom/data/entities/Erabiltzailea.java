@@ -18,7 +18,6 @@ public class Erabiltzailea {
     public String izena;
     @NonNull
     public String email;
-
     @NonNull
     public String password;
 

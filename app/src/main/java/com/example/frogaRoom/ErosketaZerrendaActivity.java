@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.frogaRoom.data.ErosketaZerrendaDatabase;
 import com.example.frogaRoom.data.entities.Erabiltzailea;
 import com.example.frogaRoom.data.entities.Produktua;
+import com.example.frogaRoom.data.entities_aux.ProduktuaInfo;
 import com.example.frogaRoom.data.entities_relations.ErosketaZerrendaProduktuakCrossRef;
 
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
 
     }
 
-    private void irakurriProduktuak() {
+/*    private void irakurriProduktuak() {
 
         long zerrendaId = userId;
         List<ErosketaZerrendaProduktuakCrossRef> prodEroskList =  datuBasea.erosketaZerrendaProduktuakDao().getProductsInList(zerrendaId);
@@ -166,6 +167,24 @@ public class ErosketaZerrendaActivity extends AppCompatActivity {
         String erosketaZerrenda = "";
         for (int i = 0; i < produkList.size();i++) {
             String prokuktuInfo = produkList.get(i).getIzena() + " Kop: " + prodEroskList.get(i).getKopurua()
+                    + " Prezioa: " + produkList.get(i).getPrezioa() + " €";
+            erosketaZerrenda += prokuktuInfo + "\n";
+        }
+
+        TextView tZerrenda = findViewById(R.id.tZerrenda);
+        // KONTUZ!!! Hau asinkronoa da.
+        tZerrenda.setText(erosketaZerrenda);
+
+    }*/
+    private void irakurriProduktuak() {
+
+        long zerrendaId = userId;
+        List<ProduktuaInfo> produkList =  datuBasea.erosketaZerrendaProduktuakDao().getZerrendakoProduktuInfoList(zerrendaId);
+
+
+        String erosketaZerrenda = "";
+        for (int i = 0; i < produkList.size();i++) {
+            String prokuktuInfo = produkList.get(i).getIzena() + " Kop: " + produkList.get(i).getKopurua()
                     + " Prezioa: " + produkList.get(i).getPrezioa() + " €";
             erosketaZerrenda += prokuktuInfo + "\n";
         }

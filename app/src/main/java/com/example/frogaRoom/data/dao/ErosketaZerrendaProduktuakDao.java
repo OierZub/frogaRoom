@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.frogaRoom.data.entities_aux.ProduktuaInfo;
 import com.example.frogaRoom.data.entities_relations.ErosketaZerrendaProduktuakCrossRef;
 
 import java.util.List;
@@ -23,12 +24,12 @@ public interface ErosketaZerrendaProduktuakDao {
     ErosketaZerrendaProduktuakCrossRef getProductByIdFromZerrenda(long listId, long prodId);
 
     // Zerrendako produktu guztien izenak eskuratzeko. Hau 2.5.0 room bertsioa behar da.
-    /*
-    @Query("SELECT produktuak FROM products " +
-            "INNER JOIN shopping_list_products ON products.productId = shopping_list_products.productId " +
-            "WHERE shopping_list_products.listId = :listId")
-    List<String> getProductsInShoppingList(int listId);
-    */
+
+    @Query("SELECT produktuak.product_id, produktuak.izena, produktuak.prezioa, erosketa_zerrenda_produktuak.kopurua FROM produktuak " +
+            "INNER JOIN erosketa_zerrenda_produktuak ON produktuak.product_id = erosketa_zerrenda_produktuak.produktuId " +
+            "WHERE erosketa_zerrenda_produktuak.zerrendaId = :listId")
+    List<ProduktuaInfo> getZerrendakoProduktuInfoList(long listId);
+
 
 
     // Eguneratzeko kopurua
